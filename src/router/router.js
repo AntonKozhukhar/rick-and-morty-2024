@@ -1,7 +1,13 @@
-export default [
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/store/authStore';
+
+const routes = [
 	{
 		path: '/',
 		component: () => import('@/layouts/MainLayout.vue'),
+		meta: {
+			requiresAuth: true
+		},
 		children: [
 			{
 				path: '',
@@ -58,6 +64,7 @@ export default [
 	{
 		path: '/auth',
 		component: () => import('@/layouts/AuthLayout.vue'),
+		redirect: { name: 'LoginPage' },
 		children: [
 			{
 				path: 'login',
@@ -70,5 +77,29 @@ export default [
 				component: () => import('@/pages/auth/RegistrationPage.vue')
 			}
 		]
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		name: 'NotFoundPage',
+		component: () => import('@/pages/NotFoundPage.vue')
 	}
 ];
+
+const router = createRouter({
+	history: createWebHistory(),
+	routes
+});
+
+router.beforeEach(to => {
+	const authStore = useAuthStore();
+	// якщо користувач не залогінений і сторінка вимагає авторизацію - перенаправляємо на сторінку авторизації
+	if (!authStore.isLoggedIn && to.meta.requiresAuth) {
+		return { name: 'LoginPage' };
+	}
+	// якщо користувач залогінений і сторінка не вимагає авторизацію - перенаправляємо на головну сторінку
+	else if (authStore.isLoggedIn && !to.meta.requiresAuth) {
+		return { name: 'HomePage' };
+	}
+});
+
+export default router;
