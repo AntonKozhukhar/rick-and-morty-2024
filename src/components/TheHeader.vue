@@ -3,7 +3,7 @@
 		<button
 			type="button"
 			class="header__burger"
-			@click="isNavOpen = !isNavOpen"
+			@click="$emit('on-toggle')"
 		>
 			<MenuIcon />
 		</button>
@@ -34,23 +34,7 @@ export default {
 	components: {
 		MenuIcon
 	},
-	props: {
-		modelValue: {
-			type: Boolean,
-			required: true
-		}
-	},
-	emits: ['update:modelValue'],
-	computed: {
-		isNavOpen: {
-			get() {
-				return this.modelValue;
-			},
-			set(value) {
-				this.$emit('update:modelValue', value);
-			}
-		}
-	}
+	emits: ['on-toggle']
 };
 </script>
 

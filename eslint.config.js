@@ -47,7 +47,7 @@ export default [
 				{ registeredComponentsOnly: false }
 			],
 			'vue/component-options-name-casing': ['error', 'PascalCase'],
-			'vue/custom-event-name-casing': ['error', 'camelCase'],
+			'vue/custom-event-name-casing': ['error', 'kebab-case'],
 			'vue/html-button-has-type': 'error',
 			'vue/html-comment-content-spacing': 'error',
 			'vue/html-comment-indent': 'error',

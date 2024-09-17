@@ -30,11 +30,6 @@ export default {
 	components: {
 		CharacterCard
 	},
-	data() {
-		return {
-			windowWidth: window.innerWidth
-		};
-	},
 	computed: {
 		...mapState(useCharactersStore, ['characters']),
 		isDataExists() {
@@ -45,16 +40,11 @@ export default {
 			);
 		}
 	},
-	watch: {
-		windowWidth() {
-			console.log(this.windowWidth);
-		}
-	},
 	async created() {
 		if (!this.isDataExists) {
 			await Promise.all([this.getCharacters(), this.getEpisodes(), this.getLocations()]);
 		}
-		await this.getRandomCharacters(10);
+		await this.getRandomCharacters(12);
 	},
 	methods: {
 		...mapActions(useCharactersStore, ['getCharacters', 'getRandomCharacters']),

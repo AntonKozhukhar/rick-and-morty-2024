@@ -79,6 +79,7 @@ export default {
 	border: 1px solid $light-grey;
 	background-color: $bg-card;
 	color: $white;
+	height: 100%;
 	// .character__image
 	&__image {
 		min-width: 200px;

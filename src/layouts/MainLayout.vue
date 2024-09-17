@@ -2,7 +2,7 @@
 	<div class="page">
 		<TheNavigation :is-open="isNavOpen" />
 		<div class="page__content">
-			<TheHeader v-model="isNavOpen" />
+			<TheHeader @on-toggle="isNavOpen = !isNavOpen" />
 			<main class="page__main">
 				<RouterView #default="{ Component }">
 					<Transition
